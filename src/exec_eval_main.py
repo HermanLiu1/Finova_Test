@@ -86,7 +86,7 @@ def fineva_main(args):
         df = pd.DataFrame(dataset)
         os.makedirs(args.save_path, exist_ok=True)
 
-        save_file = os.path.join(args.save_path, f'{args.model_name}_ga.csv')
+        save_file = os.path.join(args.save_path, f'{args.model_name}_{args.dataset_name}_ga.csv')
         df.to_csv(save_file, index=False)
         print(f'结果已保存到 {save_file}')
 
@@ -109,6 +109,9 @@ def parse_arguments():
     # 重试相关参数
     parser.add_argument('--max_retries', type=int, default=5, help="最大重试次数")
     parser.add_argument('--retry_delay', type=int, default=2, help="重试延迟时间(秒)")
+
+    #思维链数据集耗时太长，进行sample
+    parser.add_argument('--cot_sample', type=int, default=280, help="思维链数据集采样")
     
     return parser.parse_args()
 

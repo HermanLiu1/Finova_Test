@@ -271,7 +271,7 @@ def get_score(args):
     if not os.path.exists(result_path):
         os.makedirs(result_path)
 
-    ga_result_path = os.path.join(result_path, f'{model_name}_ga.csv')
+    ga_result_path = os.path.join(result_path, f'{model_name}_{args.dataset_name}_ga.csv')
     df = pd.read_csv(ga_result_path)
     sid_set = set()
     for index, row in df.iterrows():
@@ -280,7 +280,7 @@ def get_score(args):
         sid_set.add(sid)
         df.at[index, f'{model_name}_extract'] = EXTRACTOR_MAP[row['from']](row[f'{model_name}_answer'])
 
-    df.to_csv(os.path.join(result_path, f'{model_name}_result.csv'), index=False)
+    df.to_csv(os.path.join(result_path, f'{model_name}_{args.dataset_name}_result.csv'), index=False)
 
     # 计算 accuracy
     task_acc = {}
